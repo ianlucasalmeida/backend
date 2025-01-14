@@ -1,0 +1,46 @@
+create schema if not exists concessionaria;
+use concessionaria;
+
+
+CREATE TABLE veiculos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    modelo VARCHAR(100) NOT NULL,
+    marca VARCHAR(50) NOT NULL,
+    preco DECIMAL(12, 2) NOT NULL,
+    ano INT NOT NULL,
+    vendido BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE clientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    endereco TEXT NOT NULL
+);
+
+CREATE TABLE funcionarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    cargo VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE vendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    veiculo_id INT UNSIGNED NOT NULL,
+    cliente_id INT UNSIGNED NOT NULL,
+    funcionario_id INT UNSIGNED NOT NULL,
+    data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    valor_total DECIMAL(12, 2) NOT NULL,
+    FOREIGN KEY (veiculo_id) REFERENCES veiculos (id) ON DELETE CASCADE,
+    FOREIGN KEY (cliente_id) REFERENCES clientes (id) ON DELETE CASCADE,
+    FOREIGN KEY (funcionario_id) REFERENCES funcionarios (id) ON DELETE CASCADE
+);
+
+ALTER TABLE veiculos MODIFY id INT UNSIGNED AUTO_INCREMENT;
+ALTER TABLE clientes MODIFY id INT UNSIGNED AUTO_INCREMENT;
+ALTER TABLE funcionarios MODIFY id INT UNSIGNED AUTO_INCREMENT;
+
+

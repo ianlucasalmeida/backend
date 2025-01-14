@@ -128,9 +128,9 @@ def add_venda():
     return jsonify({'message': 'Venda realizada com sucesso!'})
 
 # Inicializar o banco de dados (opcional, para testes locais)
-@app.before_first_request
+'''@app.before_first_request_funcs.append
 def create_tables():
-    db.create_all()
+    db.create_all()'''
 
 # Rodar o servidor
 if __name__ == '__main__':
